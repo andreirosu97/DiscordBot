@@ -1,1 +1,1 @@
-Worker: node index.js np
+Worker: node src/index.js np

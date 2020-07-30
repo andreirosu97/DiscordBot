@@ -22,6 +22,7 @@ module.exports = class RohoClient extends Client {
 
         this.once('ready', () => {
             console.log(`Logged in as ${this.user.username}.`);
+            this.user.setActivity("Gay porn.", { type: 'WATCHING' });
         });
 
         this.on('message', async (message) => {
@@ -55,9 +56,9 @@ module.exports = class RohoClient extends Client {
     }
 
     async start(token = this.token) {
-        //super.login(process.env.token);
+        super.login(process.env.token);
         this.utils.loadCommands();
-        super.login(token);
+        //super.login(token);
     }
 
     updateConfig() {
