@@ -186,3 +186,12 @@ module.exports.run =  async (bot, message, args) => {
 module.exports.help = {
     name: "corona"
 }
+
+module.exports.config = {
+    name: "corona",
+    description: "commands used for the CoronaPoll",
+    usage: "",
+    category: "contests",
+    accessableby: "Members",
+    aliases: ["cov"]
+}
