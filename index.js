@@ -1,5 +1,5 @@
-const RohoClient = require('./Structures/RohoClient');
-const config = require('../config.json');
+const RohoClient = require('./src/Structures/RohoClient');
+const config = require('./config.json');
 
 const bot = new RohoClient(config);
 bot.start();
