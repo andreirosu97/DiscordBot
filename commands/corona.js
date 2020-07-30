@@ -84,7 +84,7 @@ function checkForCoronaUpdate(bot) {
                 updateJSON();
             }
         }
-    }, ms('10s'));
+    }, ms('4h'));
 }
 
 function generateWinnerEmbed(bot) {
