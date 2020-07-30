@@ -1,5 +1,6 @@
 const { Client, Collection } = require('discord.js');
 const Util = require('./Utils.js');
+const fs = require('fs');
 
 module.exports = class RohoClient extends Client {
     
@@ -15,13 +16,17 @@ module.exports = class RohoClient extends Client {
         
         this.utils = new Util(this); 
 
+        this.owners = options.owners;
+
+        this.config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
+
         this.once('ready', () => {
-            console.log(`Logged in as ${this.user.username}`);
+            console.log(`Logged in as ${this.user.username}.`);
         });
 
         this.on('message', async (message) => {
-            const mensionRegex = RegEx(`^<@!${this.user.id}>$`);
-            const mensionRegexPrefix = RegEx(`^<@!${this.user.id}>`);
+            const mentionRegex = RegExp(`^<@!${this.user.id}>$`);
+            const mentionRegexPrefix = RegExp(`^<@!${this.user.id}>`);
 
             if (!message.guild || message.author.bot) return;
 
@@ -30,7 +35,8 @@ module.exports = class RohoClient extends Client {
             const prefix = message.content.match(mentionRegexPrefix) ? 
                 message.content.match(mentionRegexPrefix)[0] : this.prefix;
 
-            
+            // eslint-disable-next-line no-unused-vars
+            if (!message.content.startsWith(prefix)) return;
             const [cmd, ...args] =  message.content.slice(prefix.length).trim().split(/ +/g);
 
             const command = this.commands.get(cmd.toLowerCase()) || this.commands.get(this.aliases.get(cmd.toLowerCase()));
@@ -42,14 +48,24 @@ module.exports = class RohoClient extends Client {
 
     validate(options) {
         if (typeof options !== 'object') throw new TypeError('Options should be a type of Object.');
-
+        this.token = options.token;
         if (!options.prefix) throw new Error('You must pass a prefix for the client.');
         if (typeof options.prefix !== 'string') throw new TypeError('Prefix should be a type of String.');
         this.prefix = options.prefix;
     }
 
-    async start(token) {
+    async start(token = this.token) {
         //super.login(process.env.token);
+        this.utils.loadCommands();
         super.login(token);
+    }
+
+    updateConfig() {
+        this.config.prefix = this.prefix;
+        this.config.token = this.token;
+        this.config.version = this.version;
+        fs.writeFile('./config.json', JSON.stringify(this.config), (err) => {
+            if (err) console.log(err);
+        });
     }
 };
