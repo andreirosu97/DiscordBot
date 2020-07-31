@@ -56,8 +56,8 @@ module.exports = class RohoClient extends Client {
     }
 
     async start(token = this.token) {
-        super.login(process.env.token);
         this.utils.loadCommands();
+        super.login(process.env.token);
         //super.login(token);
     }
 

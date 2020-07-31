@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+/*const Discord = require("discord.js");
 const fs = require("fs");
 const ms = require("ms");
 const superagent = require("superagent");
@@ -194,4 +194,4 @@ module.exports.config = {
     category: "contests",
     accessableby: "Members",
     aliases: ["cov"]
-}
+}*/
