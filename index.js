@@ -1,4 +1,4 @@
-const RohoClient = require('./src/Structures/RohoClient');
+const RohoClient = require('./src/Structures/RohoClient.js');
 const config = require('./config.json');
 
 const client = new RohoClient(config);
