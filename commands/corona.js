@@ -87,6 +87,20 @@ function checkForCoronaUpdate(bot) {
     }, ms('30m'));
 }
 
+function checkForCoronaUpdateManual(bot) {
+    let {body} = await superagent 
+        .get(`https://coronavirus-19-api.herokuapp.com/countries/Romania`);
+    if (body.cases > coronaJson.cases) {
+        let ch = bot.channels.cache.get(channelVar.id);
+        if (ch) {
+            ch.send(generateNewsEmbed(body));
+            ch.send(generateWinnerEmbed(bot, body.todayCases));
+            coronaJson.cases = body.cases;
+            updateJSON();
+        }
+    }
+}
+
 function generateWinnerEmbed(bot, todayCases) {
     let diff = 99999;
     let winner = 'random_id';
@@ -177,6 +191,9 @@ module.exports.run =  async (bot, message, args) => {
             .setTitle("Tari disponibile")
             .setDescription(countries);
         return message.channel.send(embed);
+    } else if (args[0] == 'update') {
+        checkForCoronaUpdateManual(bot);
+        return;
     } else {
         return message.channel.send(`Scuze nu am inteles: \`${bot.prefix}help corona\`.`);
     }
