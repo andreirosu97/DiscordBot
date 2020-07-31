@@ -49,13 +49,12 @@ module.exports = class RohoClient extends Client {
 
     validate(options) {
         if (typeof options !== 'object') throw new TypeError('Options should be a type of Object.');
-        this.token = options.token;
         if (!options.prefix) throw new Error('You must pass a prefix for the client.');
         if (typeof options.prefix !== 'string') throw new TypeError('Prefix should be a type of String.');
         this.prefix = options.prefix;
     }
 
-    async start(token = this.token) {
+    async start() {
         this.utils.loadCommands();
         super.login(process.env.token);
         //super.login(token);

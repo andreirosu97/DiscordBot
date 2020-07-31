@@ -1,8 +1,8 @@
 const RohoClient = require('./src/Structures/RohoClient');
 const config = require('./config.json');
 
-const bot = new RohoClient(config);
-bot.start();
+const client = new RohoClient(config);
+client.start();
 
 // let botconfig = require('./botconfig.json');
 // const Discord = require('discord.js');
