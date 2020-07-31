@@ -87,7 +87,7 @@ function checkForCoronaUpdate(bot) {
     }, ms('30m'));
 }
 
-function checkForCoronaUpdateManual(bot) {
+async function checkForCoronaUpdateManual(bot) {
     let {body} = await superagent 
         .get(`https://coronavirus-19-api.herokuapp.com/countries/Romania`);
     if (body.cases > coronaJson.cases) {
