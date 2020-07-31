@@ -90,7 +90,6 @@ function checkForCoronaUpdate(bot) {
 function generateWinnerEmbed(bot, todayCases) {
     let diff = 99999;
     let winner = 'random_id';
-    let todayCases = coronaJson.todayCases;
     for(var id in coronaJson.users) {
         if ( coronaJson.users[id]['bet'] != '0' && 
             Math.abs(coronaJson.users[id]['bet'] - todayCases)  < diff)
